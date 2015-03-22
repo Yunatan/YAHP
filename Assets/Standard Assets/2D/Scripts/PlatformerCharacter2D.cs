@@ -19,12 +19,16 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+		private Transform firePoint;
+
+		public Transform bulletPrefab;
 
         private void Awake()
         {
             // Setting up references.
             m_GroundCheck = transform.Find("GroundCheck");
             m_CeilingCheck = transform.Find("CeilingCheck");
+			firePoint = transform.Find("FirePoint");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
@@ -47,6 +51,12 @@ namespace UnityStandardAssets._2D
             // Set the vertical animation
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
         }
+
+		public void Shoot() {
+			var rotat = firePoint.rotation;
+			rotat.y += transform.localScale.x < 0 ? 180 : 0;
+			Instantiate (bulletPrefab, firePoint.position, rotat);	
+		}
 
 
         public void Move(float move, bool crouch, bool jump)

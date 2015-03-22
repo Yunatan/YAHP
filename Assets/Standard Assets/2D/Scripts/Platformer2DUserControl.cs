@@ -26,14 +26,21 @@ namespace UnityStandardAssets._2D
             }
         }
 
+		double cooldown = 1;
 
         private void FixedUpdate()
         {
             // Read the inputs.
-            bool crouch = Input.GetKey(KeyCode.LeftControl);
+            bool fire = Input.GetKey(KeyCode.LeftControl);
+			if (fire && cooldown > 0) {
+				cooldown -= 1;
+				GetComponent<Animator>().Play ("FireStraightAnimation");
+				m_Character.Shoot();
+			}
+			cooldown += cooldown >= 1 ? 0 : 0.03;
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             // Pass all parameters to the character control script.
-            m_Character.Move(h, crouch, m_Jump);
+            m_Character.Move(h, false, m_Jump);
             m_Jump = false;
         }
     }
