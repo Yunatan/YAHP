@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets._2D
 {
@@ -30,9 +31,19 @@ namespace UnityStandardAssets._2D
             m_CeilingCheck = transform.Find("CeilingCheck");
 			firePoint = transform.Find("FirePoint");
             m_Anim = GetComponent<Animator>();
-            m_Rigidbody2D = GetComponent<Rigidbody2D>();
+			m_Rigidbody2D = GetComponent<Rigidbody2D>();
+			text = GameObject.Find ("Text").GetComponent<Text>();
         }
-
+		
+		
+		public int HP = 10;
+		Text text;
+		
+		public void TakeDamage(int damage) {
+			HP -= damage;
+			
+			text.text = HP.ToString();
+		}
 
         private void FixedUpdate()
         {
@@ -109,6 +120,14 @@ namespace UnityStandardAssets._2D
             }
         }
 
+		void OnCollisionEnter2D(Collision2D collision) {
+			if (collision.gameObject.name.Contains("Chaser"))
+				TakeDamage (1);
+			if (HP <= 0) {
+				text.text = "YOU LOSE";
+				Time.timeScale = 0;
+			}
+		}
 
         private void Flip()
         {
