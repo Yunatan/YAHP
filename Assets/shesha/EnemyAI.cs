@@ -52,7 +52,7 @@ public class EnemyAI : MonoBehaviour {
 	IEnumerator UpdatePath () {
 		if (target == null) {
 			//TODO: Insert a player search here.
-			return false;
+			yield return false;
 		}
 		
 		// Start a new path to the target position, return the result to the OnPathComplete method
