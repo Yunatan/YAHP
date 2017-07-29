@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 using System;
-using UnityEngine;
+
 using Pathfinding;
 
 namespace Pathfinding {
@@ -65,7 +65,7 @@ namespace Pathfinding {
 		
 		[System.Diagnostics.Conditional ("UNITY_PRO_PROFILER")]
 		public static void EndProfile () {
-			Profiler.EndSample ();
+			UnityEngine.Profiling.Profiler.EndSample ();
 		}
 		
 		[System.Diagnostics.Conditional ("ProfileAstar")]
@@ -90,7 +90,7 @@ namespace Pathfinding {
 		{
 			if (!profiles.ContainsKey(tag))
 			{
-				Debug.LogError("Can only end profiling for a tag which has already been started (tag was " + tag + ")");
+				//Debug.LogError("Can only end profiling for a tag which has already been started (tag was " + tag + ")");
 				return;
 			}
 			//Console.WriteLine ("Profile End - " + tag);
@@ -168,7 +168,7 @@ namespace Pathfinding {
 			output.Append("\n\n============================\n\t\tTotal runtime: ");
 			output.Append(endTime.TotalSeconds.ToString("F3"));
 			output.Append(" seconds\n============================");
-			Debug.Log(output.ToString());
+			//Debug.Log(output.ToString());
 		}
 		
 		[System.Diagnostics.Conditional ("ProfileAstar")]
@@ -220,7 +220,7 @@ namespace Pathfinding {
 			output.Append("\n\n============================\n\t\tTotal runtime: ");
 			output.Append(endTime.TotalSeconds.ToString("F3"));
 			output.Append(" seconds\n============================");
-			Debug.Log(output.ToString());
+			//Debug.Log(output.ToString());
 		}
 	}
 }
